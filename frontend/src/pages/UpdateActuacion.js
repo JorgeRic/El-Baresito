@@ -1,15 +1,16 @@
+
 import React, { Component } from 'react';
 import barBackendService from '../services/bar-service';
 import { Redirect } from 'react-router-dom';
 
 class UpdateActuacion extends Component {
   state={
-    name: '',
-    date: '',
-    description: '',
-    price: '',
-    image: '',
-    type: '',
+    nameActuacion: '',
+    dateActuacion: '',
+    descriptionActuacion: '',
+    priceActuacion: '',
+    imageActuacion: '',
+    typeActuacion: '',
     redirect: false,
     message: 'Datos Modificados',
     update: false
@@ -17,16 +18,15 @@ class UpdateActuacion extends Component {
 
   componentDidMount(){
     const {id} = this.props.match.params
-    // console.log(this.props.match.params)
     barBackendService.getOneActuacion(id)
     .then((response)=>{
-      // console.log(response)
       this.setState({
-        name: response.data.name,
-        price: response.data.price,
-        type: response.data.type,
-        image: response.data.image,
-        description: response.data.description
+        nameActuacion: response.data.nameActuacion,
+        priceActuacion: response.data.priceActuacion,
+        typeActuacion: response.data.typeActuacion,
+        imageActuacion: response.data.imageActuacion,
+        dateActuacion: response.data.dateActuacion,
+        descriptionActuacion: response.data.descriptionActuacion
       })
     })
     .catch((error) => {
@@ -40,16 +40,16 @@ class UpdateActuacion extends Component {
     })  
   }
   handleSubmit = (event) => {
-    const {name, price, type, image, description} = this.state;
+    const {nameActuacion, priceActuacion, dateActuacion, typeActuacion, imageActuacion, descriptionActuacion} = this.state;
     const{id} = this.props.match.params
-    console.log(id)
     event.preventDefault()
     barBackendService.updateOneActuacion(id, {
-      name, 
-      price, 
-      type, 
-      image, 
-      description
+      nameActuacion, 
+      priceActuacion, 
+      typeActuacion, 
+      imageActuacion, 
+      dateActuacion,
+      descriptionActuacion
     })
     .then(() => {
       this.onSuccessfulSubmit()
@@ -61,7 +61,6 @@ class UpdateActuacion extends Component {
     const {name,value} = event.target;
     this.setState({
       [name]: value,
-
     });
   }
 
@@ -76,36 +75,37 @@ class UpdateActuacion extends Component {
       }, 2500)
     })
   }
+
   goToPreviousPage = () => {
     this.props.history.goBack()
   }
  
   render() {
-    const {redirect, update, image, price, message, name, type, description, date } = this.state;
+    const {redirect, update, imageActuacion, priceActuacion, message, nameActuacion, typeActuacion, descriptionActuacion, dateActuacion } = this.state;
     return (
       <div className='text-center'>
         <h2>Modificar Actuación</h2>
-        { update ? <h4 className=" bg-success p-4 message">{message}</h4> : '' }
+        { update ? <h4 className=" bg-success p-4 font-weight-bold text-white">{message}</h4> : '' }
         <form onSubmit={this.handleSubmit}>
-        <label htmlFor='name'>Grupo o Artista</label>
+        <label htmlFor='nameActuacion'>Grupo o Artista</label>
           <div className="mr-5 ml-5">
-            <input type='text' className="p-3 border-warning form-control letra mb-1  " id='name' name='name' value={name} onChange={this.handleOnChange}></input>
+            <input type='text' className="p-3 border-warning form-control letra mb-1  " id='nameActuacion' name='nameActuacion' value={nameActuacion} onChange={this.handleOnChange}></input>
           </div>
-          <label htmlFor='image'>Imagen</label>
+          <label htmlFor='imageActuacion'>Imagen</label>
           <div className="mr-5 ml-5">
-            <input type='text' className=" p-3 border-warning form-control letra mb-1  " id='image' name='image' value={image} onChange={this.handleOnChange}></input>
+            <input type='text' className=" p-3 border-warning form-control letra mb-1  " id='imageActuacion' name='imageActuacion' value={imageActuacion} onChange={this.handleOnChange}></input>
           </div>
-          <label htmlFor='price'>Precio</label>
+          <label htmlFor='priceActuacion'>Precio</label>
           <div className="mr-5 ml-5">
-            <input type='number' className=" p-3 border-warning form-control letra mb-1  " id='price' name='price' value={price} onChange={this.handleOnChange}></input>
+            <input type='number' className=" p-3 border-warning form-control letra mb-1  " id='priceActuacion' name='priceActuacion' value={priceActuacion} onChange={this.handleOnChange}></input>
           </div>
-          <label htmlFor='date'>Fecha Evento</label>
+          <label htmlFor='dateActuacion'>Fecha Evento</label>
           <div className="mr-5 ml-5">
-            <input type='date' className=" p-3 border-warning form-control letra mb-1  " id='date' name='date' value={date} onChange={this.handleOnChange}></input>
+            <input type='date' className=" p-3 border-warning form-control letra mb-1  " id='dateActuacion' name='dateActuacion' value={dateActuacion} onChange={this.handleOnChange}></input>
           </div>
-          <label htmlFor='type' className="datos-creacion">Tipo de Evento</label>
+          <label htmlFor='typeActuacion' className="datos-creacion">Tipo de Evento</label>
             <div className="mr-5 ml-5">
-              <select id='type' className="border-warning form-control letra mb-1  " value={type} onChange={this.handleOnChange} name='type'>
+              <select id='typeActuacion' className="border-warning form-control letra mb-1  " value={typeActuacion} onChange={this.handleOnChange} name='typeActuacion'>
                 <option value=''>Elegir</option>
                 <option value='charla'>Charla</option>
                 <option value='concierto'>Concierto</option>
@@ -113,9 +113,9 @@ class UpdateActuacion extends Component {
               </select>
             </div>
             <div className="d-flex flex-column">
-            <label htmlFor='description' className="datos-creacion">Descripcion Evento</label>
+            <label htmlFor='descriptionActuacion' className="datos-creacion">Descripcion Evento</label>
               <div className=" mr-5 ml-5">
-                <textarea type='text' className=" p-3 border-warning form-control letra mb-1  " cols="80" rows="3" id='description' name='description' value={description} onChange={this.handleOnChange}/> 
+                <textarea type='text' className=" p-3 border-warning form-control letra mb-1  " cols="80" rows="3" id='descriptionActuacion' name='descriptionActuacion' value={descriptionActuacion} onChange={this.handleOnChange}/> 
               </div>
           </div>
           <button type='submit' className=" btn btn-success btn-small  mt-4 mb-1 col-6 font-weight-bold text-white"><h4>Modificar Datos</h4></button>

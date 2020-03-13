@@ -5,7 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import CreateActuaciones from './pages/CreateActuaciones';
+import CreateBebidas from './pages/CreateBebidas';
 import UpdateActuacion from './pages/UpdateActuacion';
+import UpdateBebida from './pages/UpdateBebida';
 import Presentacion from './pages/Presentacion';
 import Almacen from './pages/Almacen';
 import Ventas from './pages/Ventas';
@@ -22,8 +24,10 @@ function App() {
           <Route path='/' exact component={Home} />
           <Route path='/createActuaciones' exact component={CreateActuaciones} />
           <Route path='/actuaciones/updateActuacion/:id' exact component={UpdateActuacion} />
+          <Route path='/almacen/updateBebida/:id' exact component={UpdateBebida} />
           <Route path='/presentacion' exact component={Presentacion} />
           <Route path='/almacen' exact component={Almacen} />
+          <Route path='/almacen/createBebidas' exact component={CreateBebidas} />
           <Route path='/ventas' exact component={Ventas} />
           <Route path='/productos' exact component={Productos} />
           <Route component={NotFound} />

@@ -2,29 +2,30 @@ import axios from 'axios';
 
 class BarBackendService {
   constructor(){
-    this.barBackend = axios.create({
+    this.BarBackendService = axios.create({
       baseURL: 'http://localhost:4000/index'
     })
   }
 
     getAllActuaciones(){
-      return this.barBackend.get('/actuaciones')
+      return this.BarBackendService.get('/actuaciones')
       .then(response => response)
     }
+
     getOneActuacion(id){
-      return this.barBackend.get(`/actuaciones/${id}/details`)
+      return this.BarBackendService.get(`/actuaciones/${id}/details`)
       .then(response => response)
     }
     addOneActuacion(newActuacion){
-      return this.barBackend.post('/actuaciones/new', newActuacion)
+      return this.BarBackendService.post('/actuaciones/new', newActuacion)
       .then(response => response)
     }
     updateOneActuacion(id, updatedActuacion){
-      return this.barBackend.put(`/actuaciones/${id}/update`, updatedActuacion)
+      return this.BarBackendService.put(`/actuaciones/${id}/update`, updatedActuacion)
       .then(response => response)
     }
     deleteOneActuacion(id){
-      return this.barBackend.delete(`/actuaciones/${id}/delete`)
+      return this.BarBackendService.delete(`/actuaciones/${id}/delete`)
       .then(response => response)
     }
   }
